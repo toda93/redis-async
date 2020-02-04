@@ -1,6 +1,6 @@
 {
-  "name": "toda-redis-async",
-  "version": "1.0.3",
+  "name": "@azteam/redis-async",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "repository": {
