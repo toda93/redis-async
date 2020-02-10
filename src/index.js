@@ -1,5 +1,5 @@
 import redis from 'redis';
-import {promisify} from 'util';
+import { promisify } from 'util';
 
 
 class RedisAsync {
@@ -26,15 +26,15 @@ class RedisAsync {
 
         this.client.on('connect', () => {
             this.connected = true;
-            this._alert('Redis connected');
+            this._alert('connect', 'Redis connected');
         });
 
         this.client.on('end', () => {
-            this._alert('Redis end');
+            this._alert('end', 'Redis end');
         });
 
-        this.client.on('error',  (err) => {
-            this._alert('Redis Error' + err);
+        this.client.on('error', (err) => {
+            this._alert('error', 'Redis Error' + err);
         });
     }
 
@@ -103,9 +103,11 @@ class RedisAsync {
         this.alertCallback = callback;
     }
 
-    _alert(msg) {
+    _alert(status, msg) {
         if (typeof this.alertCallback === 'function') {
-            this.alertCallback(msg);
+            this.alertCallback(status, msg);
+        } else {
+            console.info(status, msg);
         }
     }
 }
