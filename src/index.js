@@ -70,9 +70,9 @@ class RedisAsync {
         }
     }
 
-    async scan(pattern){
+    async scan(pattern, cursor = 0, count = 1000){
         const scanAsync = promisify(this.client.scan).bind(this.client);
-        return await scanAsync(0, 'MATCH', pattern);
+        return await scanAsync(cursor, 'MATCH', pattern, 'COUNT', count);
     }
 
     async remove(key, exact) {
