@@ -21,9 +21,6 @@ class RedisAsync {
                 this.client.quit();
             }
         });
-
-        this.client.client('SETNAME', process.env.PROJECT);
-
         this.client.on('connect', () => {
             this.connected = true;
             this._alert('connect', 'Redis connected');
