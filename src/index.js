@@ -71,7 +71,7 @@ class RedisAsync {
     }
 
     async scan(pattern){
-        const scanAsync = promisify(this.client.get).bind(this.client);
+        const scanAsync = promisify(this.client.scan).bind(this.client);
         return await scanAsync(0, 'MATCH', pattern);
     }
 
