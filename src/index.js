@@ -11,6 +11,8 @@ class RedisAsync {
     }
 
     connect() {
+        this._alert('connecting', 'Redis connecting...');
+
         this.client = redis.createClient({
             host: this.host,
             port: this.port,
