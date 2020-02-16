@@ -51,6 +51,20 @@ class RedisAsync {
 
         return null;
     }
+    async getRaw(key) {
+        if (this.connected) {
+
+            console.log(`Redis GET ${key}`);
+
+            const getAsync = promisify(this.client.get).bind(this.client);
+            const data = await getAsync(key);
+            return data;
+        } else {
+            this.connect();
+        }
+
+        return null;
+    }
 
     async ttl(key) {
         const ttlAsync = promisify(this.client.ttl).bind(this.client);
@@ -67,6 +81,16 @@ class RedisAsync {
             console.log(`Redis SET ${key}`);
 
             await this.client.set(key, JSON.stringify(data), 'EX', time);
+        } else {
+            this.connect();
+        }
+    }
+    async setRaw(key, data, time = 100000) {
+        if (this.connected) {
+
+            console.log(`Redis SET ${key}`);
+
+            await this.client.set(key, data, 'EX', time);
         } else {
             this.connect();
         }
