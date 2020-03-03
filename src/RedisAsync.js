@@ -3,10 +3,10 @@ import { promisify } from 'util';
 
 
 class RedisAsync {
-    constructor(host, port) {
+    constructor(config) {
         this.connected = false;
-        this.host = host;
-        this.port = port;
+        this.host = config.host;
+        this.port = config.port;
         this.connect();
     }
 
