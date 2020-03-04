@@ -12,7 +12,7 @@ class RedisAsync {
     }
 
     async waitConnection(n = 10) {
-        const i = 0;
+        let i = 0;
         while (!this.connected) {
             ++i;
             if (i >= n) {
