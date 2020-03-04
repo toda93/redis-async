@@ -1,5 +1,6 @@
 import redis from 'redis';
 import { promisify } from 'util';
+import {timeout} from '@azteam/ultilities';
 
 
 class RedisAsync {
@@ -8,6 +9,18 @@ class RedisAsync {
         this.host = config.host;
         this.port = config.port;
         this.connect();
+    }
+
+    async waitConnect(n = 10) {
+        const i = 0;
+        while (!this.connected) {
+            ++i;
+            if (i >= n) {
+                return false;
+            }
+            await timeout(1000);
+        }
+        return true;
     }
 
     connect() {
