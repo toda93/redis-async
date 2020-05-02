@@ -1,6 +1,6 @@
 import redis from 'redis';
 import { promisify } from 'util';
-import {timeout} from '@azteam/ultilities';
+import { timeout } from '@azteam/ultilities';
 
 
 class RedisAsync {
@@ -60,11 +60,12 @@ class RedisAsync {
             return JSON.parse(data);
         } else {
             this.connect();
+            return this.get(key);
         }
 
         return null;
     }
-    
+
 
     async ttl(key) {
         const ttlAsync = promisify(this.client.ttl).bind(this.client);
@@ -77,16 +78,15 @@ class RedisAsync {
 
     async set(key, data, time = 100000) {
         if (this.connected) {
-
             console.log(`Redis SET ${key}`);
-
-            await this.client.set(key, JSON.stringify(data), 'EX', time);
+            return await this.client.set(key, JSON.stringify(data), 'EX', time);
         } else {
             this.connect();
+            return this.set(key, data, time);
         }
     }
-    
-    async scan(pattern, cursor = 0, count = 1000){
+
+    async scan(pattern, cursor = 0, count = 1000) {
         const scanAsync = promisify(this.client.scan).bind(this.client);
         return await scanAsync(cursor, 'MATCH', pattern, 'COUNT', count);
     }
@@ -107,12 +107,13 @@ class RedisAsync {
 
                 if (keys.length > 0) {
                     console.log(`Redis REMOVE keys`, keys);
-                    await this.client.del(keys);
+                    return await this.client.del(keys);
                 }
             }
 
         } else {
             this.connect();
+            return this.remove(key, exact);
         }
     }
 
