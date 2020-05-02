@@ -126,7 +126,7 @@ class RedisAsync {
         if (typeof this.alertCallback === 'function') {
             this.alertCallback(status, msg);
         } else {
-            console.log(status, msg);
+            console.error(status, msg);
         }
     }
 }
