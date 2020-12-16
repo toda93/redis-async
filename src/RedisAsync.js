@@ -57,7 +57,9 @@ class RedisAsync {
 
             const getAsync = promisify(this.client.get).bind(this.client);
             const data = await getAsync(key);
-            return JSON.parse(data);
+            if (data) {
+                return JSON.parse(data);
+            }
         } else {
             this.connect();
             return this.get(key);
