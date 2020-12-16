@@ -50,7 +50,7 @@ class RedisAsync {
         });
     }
 
-    async get(key) {
+    async get(key, defaultValue = null) {
         if (this.connected) {
 
             console.log(`Redis GET ${key}`);
@@ -63,7 +63,7 @@ class RedisAsync {
             return this.get(key);
         }
 
-        return null;
+        return defaultValue;
     }
 
 
