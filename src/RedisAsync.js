@@ -1,6 +1,6 @@
 import redis from 'redis';
 import { promisify } from 'util';
-import { timeout } from '@azteam/ultilities';
+import { timeout } from '@azteam/util';
 
 
 class RedisAsync {
