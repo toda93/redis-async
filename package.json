@@ -1,6 +1,6 @@
 {
     "name": "@azteam/redis-async",
-    "version": "1.0.32",
+    "version": "1.0.33",
     "description": "",
     "main": "src/index.js",
     "repository": {
@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/toda93/redis-async#readme",
     "dependencies": {
-        "@azteam/util": "1.0.2",
+        "@azteam/util": "1.0.3",
         "redis": "~2.8.0"
     }
 }
